@@ -1,6 +1,7 @@
 package com.clb.services;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -9,7 +10,9 @@ import com.clb.models.Card;
 import com.clb.repositories.CardRepository;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
 
+@Log
 @Service
 @RequiredArgsConstructor
 public class CardService {
@@ -22,11 +25,11 @@ public class CardService {
 	}
 	
 	public Card getCardById(Long cardId) {
-		Optional<Card> maybecard = cardRepository.findById(cardId);
-		return maybecard.get();
+		Optional<Card> maybeCard = cardRepository.findById(cardId);
+		return maybeCard.orElseThrow();
 	}
 	
-	public void createCard(Card card) throws Exception{
+	public void createCard(Card card) {
 		cardRepository.save(card);
 	}
 	

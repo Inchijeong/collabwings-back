@@ -20,7 +20,9 @@ import com.clb.models.Card;
 import com.clb.services.CardService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
 
+@Log
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/cards")
@@ -35,15 +37,9 @@ public class CardController {
 	}
 	
 	@GetMapping("/{id}")
-	public ApiResult getCardById(@PathVariable("id") Long cardId){
-		Card card = null;
-		try {
-			card = cardService.getCardById(cardId);
-			return succeed(card);
-		}catch (Exception e) {
-			return failed(e);
-//			return card != null ? succeed(card) : failed("This id doesn't exist");			
-		}
+	public ApiResult<Card> getCardById(@PathVariable("id") Long cardId){
+		Card card = cardService.getCardById(cardId);
+		return succeed(card);
 	}
 	
 	@PostMapping("")
@@ -73,7 +69,8 @@ public class CardController {
 	}
 	
 	@DeleteMapping("/{id}")
-	public void deleteCard(@PathVariable("id") Long cardId){
+	public ApiResult<Long> deleteCard(@PathVariable("id") Long cardId){
 		cardService.deleteCard(cardId);
+		return succeed(cardId);
 	}
 }
