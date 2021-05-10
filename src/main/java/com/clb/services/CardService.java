@@ -1,18 +1,16 @@
 package com.clb.services;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.clb.models.Card;
 import com.clb.repositories.CardRepository;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.java.Log;
 
-@Log
 @Service
 @RequiredArgsConstructor
 public class CardService {
@@ -29,16 +27,16 @@ public class CardService {
 		return maybeCard.orElseThrow();
 	}
 	
-	public void createCard(Card card) {
-		cardRepository.save(card);
+	public Card createCard(Card card) {
+		Card createdCard = cardRepository.save(card);
+		return createdCard;
 	}
 	
-	public void replaceCard(Long cardId, Card card) {
-		cardRepository.findById(cardId).ifPresent(c -> cardRepository.save(card));
-	}
-	
-	public void modifyCard(Long cardId, Card card) {
-		cardRepository.findById(cardId).ifPresent(c -> cardRepository.save(card));
+	@Transactional
+	public Card replaceCard(Long cardId, Card card) {
+		cardRepository.findById(cardId).orElseThrow();
+		Card replacedCard = cardRepository.save(card);
+		return replacedCard;
 	}
 	
 	public void deleteCard(Long cardId) {

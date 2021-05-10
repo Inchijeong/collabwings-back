@@ -13,5 +13,9 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
   jackson:
     property-naming-strategy: SNAKE_CASE
+logging.level.org.hibernate.type.descriptor.sql: trace
