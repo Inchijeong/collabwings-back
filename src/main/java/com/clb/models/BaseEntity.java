@@ -9,6 +9,7 @@ import javax.persistence.MappedSuperclass;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Getter;
 
@@ -17,11 +18,13 @@ import lombok.Getter;
 @EntityListeners(AuditingEntityListener.class)
 public abstract class BaseEntity {
 	
-	@CreatedDate
 	@Column(updatable = false)
+	@CreatedDate
+	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
 	private LocalDateTime createdDate;
 	
-	@LastModifiedDate
 	@Column
+	@LastModifiedDate
+	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
 	private LocalDateTime modifiedDate;
 }

@@ -16,16 +16,19 @@ public class GlobalControllerAdvice {
 
 	@ExceptionHandler(NoSuchElementException.class)
 	public ApiResult<?> noSuchElementExceptionHandler(NoSuchElementException e) {
+		e.printStackTrace();
 		return failed("Invalid Identification Value");
 	}
 	
 	@ExceptionHandler(EmptyResultDataAccessException.class)
 	public ApiResult<?> emptyResultDataAccessExceptionHandler(EmptyResultDataAccessException e) {
+		e.printStackTrace();
 		return failed("Invalid Target");
 	}
 	
 	@ExceptionHandler(PropertyValueException.class)
 	public ApiResult<?> propertyValueExceptionHandler(PropertyValueException e) {
+		e.printStackTrace();
 		return failed("Invalid Resource");
 	}
 }

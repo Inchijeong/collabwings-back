@@ -10,14 +10,16 @@ import com.clb.models.Card;
 import com.clb.repositories.CardRepository;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
 
+@Log
 @Service
 @RequiredArgsConstructor
 public class CardService {
 
 	private final CardRepository cardRepository;
 
-	public List<Card> getCardList() {		
+	public List<Card> getCardList() {
 		List<Card> cards = cardRepository.findAll();
 		return cards;
 	}
