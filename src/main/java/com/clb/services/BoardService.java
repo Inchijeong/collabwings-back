@@ -10,7 +10,9 @@ import com.clb.models.Board;
 import com.clb.repositories.BoardRepository;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
 
+@Log
 @Service
 @RequiredArgsConstructor
 public class BoardService {

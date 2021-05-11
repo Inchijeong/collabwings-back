@@ -3,15 +3,15 @@ package com.clb.apis.dto;
 import static org.springframework.beans.BeanUtils.copyProperties;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 import com.clb.models.Board;
-import com.clb.models.Card;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,20 +24,29 @@ public class BoardDto {
 
 	private Long id;
 	private String title;
-	private List<CardDto> cards  = new ArrayList<CardDto>();
+	private List<CardDto> cards;
 	private LocalDateTime createdDate;
 	private LocalDateTime modifiedDate;
 	
 	public BoardDto(Board source) {
 		copyProperties(source, this);
-		this.cards =  source.getCards().stream().map(CardDto::new).collect(Collectors.toList());
+		this.cards = 
+				Optional.ofNullable(source.getCards())
+				.orElseGet(Collections::emptyList)
+				.stream()
+				.map(CardDto::new)
+				.collect(Collectors.toList());
 	}
 	
 	public Board toEntity() {
 		return Board.builder()
 				.id(id)
 				.title(title)
-				.cards(cards.stream().map(CardDto::toEntity).collect(Collectors.toList()))
+				.cards(cards != null ?
+						cards.stream()
+						.map(CardDto::toEntity)
+						.collect(Collectors.toList())
+						: null)
 				.build();
 	}
 	

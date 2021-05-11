@@ -42,14 +42,12 @@ public class BoardController {
 	@GetMapping("/{id}")
 	public ApiResult<BoardDto> getBoardById(@PathVariable("id") Long boardId){
 		Board board = boardService.getBoardById(boardId);
-		log.info(board.toString());
 		return succeed(new BoardDto(board));
 	}
 	
 	@PostMapping("")
 	public ApiResult<BoardDto> createBoard(@RequestBody BoardDto board){
 		Board createdBoard = boardService.createBoard(board.toEntity());
-		log.info("board:" + createdBoard);
 		return succeed(new BoardDto(createdBoard));
 	}
 	

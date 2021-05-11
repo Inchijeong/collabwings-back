@@ -1,6 +1,5 @@
 package com.clb.models;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -39,7 +38,7 @@ public class Board extends BaseEntity{
 	private String title;
 	
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="board")
-	private List<Card> cards = new ArrayList<Card>();
+	private List<Card> cards;
 	
 	@Override
 	public String toString() {
