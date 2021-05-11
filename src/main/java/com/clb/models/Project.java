@@ -8,8 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -26,11 +24,11 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @Builder
-@Table(name = "board")
+@Table(name = "project")
 @EqualsAndHashCode(of="id", callSuper=false)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
-public class Board extends BaseEntity{
+public class Project extends BaseEntity{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,20 +37,15 @@ public class Board extends BaseEntity{
 	@Column(length = 45, nullable = false)
 	private String title;
 	
-	@ManyToOne(optional=false)
-	@JoinColumn(name="project_id")
-	private Project project;
-	
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="board")
-	private List<Card> cards;
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="project")
+	private List<Board> boards;
 	
 	@Override
 	public String toString() {
 		return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
 				.append("id", id)
 				.append("title", title)
-				.append("projectId", project.getId())
-				.append("cards", cards)
+				.append("boards", boards)
 				.append("createdDate", this.getCreatedDate())
 				.append("modifiedDate", this.getModifiedDate())
 				.toString();

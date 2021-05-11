@@ -11,7 +11,6 @@ import java.util.stream.Collectors;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import com.clb.models.Board;
 import com.clb.models.Project;
 
 import lombok.Getter;
@@ -21,34 +20,31 @@ import lombok.Setter;
 @Setter
 @Getter
 @NoArgsConstructor
-public class BoardDto {
+public class ProjectDto {
 
 	private Long id;
 	private String title;
-	private Long projectId;
-	private List<CardDto> cards;
+	private List<BoardDto> boards;
 	private LocalDateTime createdDate;
 	private LocalDateTime modifiedDate;
 	
-	public BoardDto(Board source) {
+	public ProjectDto(Project source) {
 		copyProperties(source, this);
-		this.projectId = source.getProject().getId();
-		this.cards = 
-				Optional.ofNullable(source.getCards())
+		this.boards = 
+				Optional.ofNullable(source.getBoards())
 				.orElseGet(Collections::emptyList)
 				.stream()
-				.map(CardDto::new)
+				.map(BoardDto::new)
 				.collect(Collectors.toList());
 	}
 	
-	public Board toEntity() {
-		return Board.builder()
+	public Project toEntity() {
+		return Project.builder()
 				.id(id)
 				.title(title)
-				.project(Project.builder().id(projectId).build())
-				.cards(cards != null ?
-						cards.stream()
-						.map(CardDto::toEntity)
+				.boards(boards != null ?
+						boards.stream()
+						.map(BoardDto::toEntity)
 						.collect(Collectors.toList())
 						: null)
 				.build();
@@ -59,8 +55,7 @@ public class BoardDto {
 		return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
 				.append("id", id)
 				.append("title", title)
-				.append("projectId", projectId)
-				.append("cards", cards)
+				.append("boards", boards)
 				.append("createdDate", createdDate)
 				.append("modifiedDate", modifiedDate)
 				.toString();
