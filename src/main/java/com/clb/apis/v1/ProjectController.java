@@ -20,9 +20,7 @@ import com.clb.models.Project;
 import com.clb.services.ProjectService;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.java.Log;
 
-@Log
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/projects")

@@ -37,6 +37,9 @@ public class Project extends BaseEntity{
 	@Column(length = 45, nullable = false)
 	private String title;
 	
+	@Column(columnDefinition = "TEXT")
+	private String descriptions;
+	
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="project")
 	private List<Board> boards;
 	
@@ -45,6 +48,7 @@ public class Project extends BaseEntity{
 		return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
 				.append("id", id)
 				.append("title", title)
+				.append("descriptions", descriptions)
 				.append("boards", boards)
 				.append("createdDate", this.getCreatedDate())
 				.append("modifiedDate", this.getModifiedDate())

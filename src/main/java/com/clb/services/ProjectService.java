@@ -20,7 +20,8 @@ public class ProjectService {
 	private final ProjectRepository projectRepository;
 
 	public List<Project> getProjectList() {
-		List<Project> projects = projectRepository.findAll();
+//		List<Project> projects = projectRepository.findAll();
+		List<Project> projects = projectRepository.findAllByOrderByIdDesc();
 		return projects;
 	}
 

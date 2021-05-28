@@ -24,6 +24,7 @@ public class ProjectDto {
 
 	private Long id;
 	private String title;
+	private String descriptions;
 	private List<BoardDto> boards;
 	private LocalDateTime createdDate;
 	private LocalDateTime modifiedDate;
@@ -42,6 +43,7 @@ public class ProjectDto {
 		return Project.builder()
 				.id(id)
 				.title(title)
+				.descriptions(descriptions)
 				.boards(boards != null ?
 						boards.stream()
 						.map(BoardDto::toEntity)
@@ -55,6 +57,7 @@ public class ProjectDto {
 		return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
 				.append("id", id)
 				.append("title", title)
+				.append("descriptions", descriptions)
 				.append("boards", boards)
 				.append("createdDate", createdDate)
 				.append("modifiedDate", modifiedDate)
