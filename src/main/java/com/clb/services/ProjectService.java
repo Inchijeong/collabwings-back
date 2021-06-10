@@ -19,8 +19,12 @@ public class ProjectService {
 
 	private final ProjectRepository projectRepository;
 
-	public List<Project> getProjectList() {
-//		List<Project> projects = projectRepository.findAll();
+	public List<Project> getProjects() {
+		List<Project> projects = projectRepository.findAll();
+		return projects;
+	}
+	
+	public List<Project> getProjectsByOrderByIdDesc() {
 		List<Project> projects = projectRepository.findAllByOrderByIdDesc();
 		return projects;
 	}

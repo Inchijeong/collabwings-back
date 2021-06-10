@@ -31,8 +31,8 @@ public class CardController {
 	private final CardService cardService;
 	
 	@GetMapping("")
-	public ApiResult<List<CardDto>> getCardList(){
-		List<CardDto> cards = cardService.getCardList()
+	public ApiResult<List<CardDto>> getCards(){
+		List<CardDto> cards = cardService.getCards()
 				.stream()
 				.map(CardDto::new)
 				.collect(Collectors.toList());
@@ -64,5 +64,11 @@ public class CardController {
 	public ApiResult<Long> deleteCard(@PathVariable("id") Long cardId){
 		cardService.deleteCard(cardId);
 		return succeed(cardId);
+	}
+	
+	@DeleteMapping("")
+	public ApiResult<String> deleteCards(){
+		cardService.deleteCards();
+		return succeed("Success");
 	}
 }

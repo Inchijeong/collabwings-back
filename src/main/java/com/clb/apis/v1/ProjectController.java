@@ -29,8 +29,8 @@ public class ProjectController {
 	private final ProjectService projectService;
 	
 	@GetMapping("")
-	public ApiResult<List<ProjectDto>> getProjectList(){
-		List<ProjectDto> projects = projectService.getProjectList()
+	public ApiResult<List<ProjectDto>> getProjects(){
+		List<ProjectDto> projects = projectService.getProjectsByOrderByIdDesc()
 				.stream()
 				.map(ProjectDto::new)
 				.collect(Collectors.toList());

@@ -31,8 +31,8 @@ public class BoardController {
 	private final BoardService boardService;
 	
 	@GetMapping("")
-	public ApiResult<List<BoardDto>> getBoardList(){
-		List<BoardDto> boards = boardService.getBoardList()
+	public ApiResult<List<BoardDto>> getBoards(){
+		List<BoardDto> boards = boardService.getBoardsByOrderByIdDesc()
 				.stream()
 				.map(BoardDto::new)
 				.collect(Collectors.toList());
@@ -64,5 +64,11 @@ public class BoardController {
 	public ApiResult<Long> deleteBoard(@PathVariable("id") Long boardId){
 		boardService.deleteBoard(boardId);
 		return succeed(boardId);
+	}
+	
+	@DeleteMapping("")
+	public ApiResult<String> deleteBoards(){
+		boardService.deleteBoards();
+		return succeed("Success");
 	}
 }

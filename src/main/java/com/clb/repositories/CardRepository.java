@@ -8,4 +8,5 @@ import com.clb.models.Card;
 @Repository
 public interface CardRepository extends JpaRepository<Card, Long> {
 
+	public void deleteAll();
 }

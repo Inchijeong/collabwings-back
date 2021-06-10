@@ -19,7 +19,7 @@ public class CardService {
 
 	private final CardRepository cardRepository;
 
-	public List<Card> getCardList() {
+	public List<Card> getCards() {
 		List<Card> cards = cardRepository.findAll();
 		return cards;
 	}
@@ -43,5 +43,9 @@ public class CardService {
 	
 	public void deleteCard(Long cardId) {
 		cardRepository.deleteById(cardId);
+	}
+	
+	public void deleteCards() {
+		cardRepository.deleteAll();
 	}
 }
